@@ -7,17 +7,14 @@ Longpoll.prototype.url = new Gaffa.Property();
 Longpoll.prototype.source = new Gaffa.Property();
 Longpoll.prototype.target = new Gaffa.Property();
 Longpoll.prototype.repoll = new Gaffa.Property();
-Longpoll.prototype.dataType = new Gaffa.Property({
-    value: 'json'
-});
-Longpoll.prototype.method = new Gaffa.Property({
-    value: 'GET'
-});
-Longpoll.prototype.bind = function(){
-    var behaviour = this,
-        gaffa = this.gaffa;
+Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
+    var gaffa = behaviour.gaffa;
 
     function poll(){
+        if(!behaviour.condition.value){
+            return;
+        }
+
         gaffa.ajax({
             url: behaviour.url.value,
             type: behaviour.method.value,
@@ -59,6 +56,13 @@ Longpoll.prototype.bind = function(){
     }
 
     poll();
-};
+});
+Longpoll.prototype.dataType = new Gaffa.Property({
+    value: 'json'
+});
+Longpoll.prototype.method = new Gaffa.Property({
+    value: 'GET'
+});
+Longpoll.prototype.bind = function(){};
 
 module.exports = Longpoll;
