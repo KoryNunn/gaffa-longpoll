@@ -1,0 +1,26 @@
+{
+  "name": "gaffa-longpoll",
+  "version": "0.0.0",
+  "description": "A longpoll behaviour for gaffa applications",
+  "main": "longpoll.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KoryNunn/gaffa-longpoll.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KoryNunn/gaffa-longpoll/issues"
+  },
+  "homepage": "https://github.com/KoryNunn/gaffa-longpoll",
+  "peerDependencies": {
+    "gaffa": "^1.2.0"
+  },
+  "dependencies": {
+    "gaffa": "~1.2.0"
+  },
+  "devDependencies": {}
+}
