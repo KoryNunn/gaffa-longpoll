@@ -27,6 +27,10 @@ Data to send to the server each request
 
 Data to store after each successful response
 
+### condition
+
+whether to trigger the behaviour.
+
 ### repoll
 
 whether to repoll after a request ends, either in error or success.
