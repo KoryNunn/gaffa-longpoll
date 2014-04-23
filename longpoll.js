@@ -7,6 +7,9 @@ Longpoll.prototype.url = new Gaffa.Property();
 Longpoll.prototype.source = new Gaffa.Property();
 Longpoll.prototype.target = new Gaffa.Property();
 Longpoll.prototype.repoll = new Gaffa.Property();
+Longpoll.prototype.cleans = new Gaffa.Property({
+    value: true
+});
 Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
     var gaffa = behaviour.gaffa,
         aborted;
@@ -28,7 +31,7 @@ Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
             data: behaviour.source.value,
             dataType: behaviour.dataType.value,
             success: function(data){
-                behaviour.target.set(data);
+                behaviour.target.set(data, !behaviour.cleans.value);
 
                 var scope = {
                     data: data
