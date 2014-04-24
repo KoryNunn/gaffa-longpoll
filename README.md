@@ -57,3 +57,11 @@ default is 'json'
 ### method
 
 the http verb to send, GET, PUT, POST etc...
+
+### minPollTime
+
+The minimum time between making a second poll request in milliseconds.
+
+Defaulted to 3000ms
+
+If a poll takes 5000ms to respond, it will repoll immediately. If it takes 1000ms to respond, it will repoll in 2000ms.

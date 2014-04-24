@@ -25,6 +25,9 @@ Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
             return;
         }
 
+        var fatalError,
+            startTime = new Date();
+
         behaviour.currentRequest = gaffa.ajax({
             url: behaviour.url.value,
             type: behaviour.method.value,
@@ -44,14 +47,15 @@ Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
                     status: event.target.status,
                     error: error
                 })){
-                    poll();
                     return;
                 }
+
+                fatalError = true;
 
                 gaffa.actions.trigger(behaviour.actions.error, behaviour, null, event);
             },
             complete: function(data){
-                if(aborted){
+                if(aborted || fatalError){
                     return;
                 }
 
@@ -63,7 +67,7 @@ Longpoll.prototype.condition = new Gaffa.Property(function(behaviour){
                 gaffa.actions.trigger(behaviour.actions.complete, behaviour, scope, event);
 
                 if(behaviour.repoll.get(scope)){
-                    poll();
+                    setTimeout(poll, startTime.getTime() + behaviour.minPollTime.value - new Date())
                 }
             }
         });
@@ -76,6 +80,9 @@ Longpoll.prototype.dataType = new Gaffa.Property({
 });
 Longpoll.prototype.method = new Gaffa.Property({
     value: 'GET'
+});
+Longpoll.prototype.minPollTime = new Gaffa.Property({
+    value: 3000
 });
 Longpoll.prototype.bind = function(){};
 
